@@ -1,11 +1,11 @@
 {
-    "name": "shopback-hw",
+    "name": "tea-detector",
     "version": "1.0.0",
     "description": "",
     "author": "tea lin",
     "main": "index.js",
     "bin": {
-        "tea": "index.js"
+        "tea-detect": "index.js"
     },
     "engines": {
         "node": ">=6.14.4"
@@ -21,6 +21,7 @@
     },
     "devDependencies": {
         "commander": "^2.19.0",
-        "mocha": "^5.2.0"
+        "mocha": "^5.2.0",
+        "rewire": "^4.0.1"
     }
 }

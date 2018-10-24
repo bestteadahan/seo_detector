@@ -18,14 +18,24 @@ describe('Rule\'s spec', () => {
     })
 
     it('Conditions in each rule should be a non-empty array', () => {
-        assert.ok(rules.every(rule => typeof (rule.conditions) === 'object'))
-        assert.ok(rules.every(rule => Array.isArray(rule.conditions)))
-        assert.ok(rules.every(rule => rule.conditions.length >= 1))
+        rules.forEach(rule=>{
+            assert.ok(typeof(rule.conditions) === 'object')
+            assert.ok(Array.isArray(rule.conditions))
+            assert.ok(rule.conditions.length >= 1)
+        })
     })
 
-    it('Conditions ', () => {
-        assert.ok(rules.every(rule => typeof (rule.conditions) === 'object'))
-        assert.ok(rules.every(rule => Array.isArray(rule.conditions)))
-        assert.ok(rules.every(rule => rule.conditions.length >= 1))
+    it('Check each condition in rule.conditions ', () => {
+        rules.forEach(rule => {
+            rule.conditions.forEach(condition => {
+                assert.ok(condition['tag'])
+                if ('val' in condition) {
+                    assert.ok(condition.hasOwnProperty('attr'))
+                }
+                if ('length' in condition) {
+                    assert.ok(typeof(condition['length']) === 'number')
+                }
+            })
+        })
     })
 })
