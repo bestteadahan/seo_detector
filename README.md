@@ -2,6 +2,7 @@
 ![Travis CI](https://travis-ci.org/bestteadahan/seo_detector.svg?branch=master)
 
 ## Installation
+**NOTE!** --global install to ensure cli could work
 ```$ npm install tea-detector --global```
 
 ## Usage
@@ -15,6 +16,7 @@ Options:
   -f, --file [name|path]  The input file path(ex: demo.html)
   -u, --url [addr]        The url source (ex: http://www.demo.com)
   -o, --output [name]     The output file name (ex: result.txt)
+  -c, --conf              Using custom rules: myrules.json
   -r, --rules [rule_no,...]    The number of rule that applied to detector, seperate by ","
   -h, --help              output usage information
 ```
@@ -47,7 +49,7 @@ Please check `lib/seorule_conf_default.json` in this repository.
 5. Detect if a HTML have more than one \<h1> tag
 
 ### 5. Custom Your Rule
-Please create `seorule_conf.json` in your project's root.
+Please create a JSON file named `myrules.json` in your project root.
 Format:
 + Json array
 + Each element defines a SEO detect rule.
@@ -86,11 +88,14 @@ Example:
 ```
 ...
 "scripts": {
-    "test-myrules": "mocha test/rule.spec.js"
+    "test": "mocha test/rule.spec.js"
 },
 ...
 ```
-+ Run `npm test-myrules` in console
++ Run `npm test` in console
++ If everything looks ok, then run `tea-detect -f file.html -c`
+
+###
 
 ### 7. Save Detection Result
 You can save all the results into file

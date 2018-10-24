@@ -8,7 +8,7 @@ const detector = new Detector(rules)
 
 describe('Detector object funtional tests', () => {
 
-    describe('Public function test', () => {
+    describe('Public function test (use default rules)', () => {
         it('#getAttributeRule()', () => {
             assert.equal(detector.getAttributeRule(), rules)
         })

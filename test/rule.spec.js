@@ -1,9 +1,15 @@
 const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
-const rules = JSON.parse(fs.readFileSync(path.resolve('seorule_conf.json')))
 
 describe('Rule\'s spec', () => {
+    var rules
+
+    it('Must be an available file named "myrules.json"', () => {
+        assert.doesNotThrow(() => {
+            rules = JSON.parse(fs.readFileSync(path.resolve('myrules.json')))
+        }, Error)
+    })
 
     it('Rules in rules_config.js should be a non-empty array', () => {
         assert.equal(typeof (rules), 'object')
@@ -20,8 +26,8 @@ describe('Rule\'s spec', () => {
     })
 
     it('Conditions in each rule should be a non-empty array', () => {
-        rules.forEach(rule=>{
-            assert.ok(typeof(rule.conditions) === 'object')
+        rules.forEach(rule => {
+            assert.ok(typeof (rule.conditions) === 'object')
             assert.ok(Array.isArray(rule.conditions))
             assert.ok(rule.conditions.length >= 1)
         })
@@ -35,7 +41,7 @@ describe('Rule\'s spec', () => {
                     assert.ok(condition.hasOwnProperty('attr'))
                 }
                 if ('length' in condition) {
-                    assert.ok(typeof(condition['length']) === 'number')
+                    assert.ok(typeof (condition['length']) === 'number')
                 }
             })
         })
