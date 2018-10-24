@@ -2,8 +2,10 @@
 ![Travis CI](https://travis-ci.org/bestteadahan/seo_detector.svg?branch=master)
 
 ## Installation
-**NOTE!** --global install to ensure cli could work
-```$ npm install tea-detector --global```
+**NOTE!** Add "--global" flag to ensure cli working well
+```
+$ npm install tea-detector --global
+```
 
 ## Usage
 
