@@ -1,5 +1,7 @@
 const assert = require('assert')
-const rules = require('../lib/rules_config')
+const fs = require('fs')
+const path = require('path')
+const rules = JSON.parse(fs.readFileSync(path.resolve('seorule_conf.json')))
 
 describe('Rule\'s spec', () => {
 

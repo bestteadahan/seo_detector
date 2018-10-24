@@ -1,6 +1,8 @@
 const assert = require('assert')
+const htmlParser = require('node-html-parser')
 const Detector = require('../lib/seoDetector.js')
-const rules = require('../lib/rules_config')
+const fs = require('fs')
+const rules = JSON.parse(fs.readFileSync('lib/seorule_conf_default.json'))
 
 const detector = new Detector(rules)
 
@@ -29,14 +31,9 @@ describe('Detector object funtional tests', () => {
                 })
         })
 
-        it('#detector(document)', done => {
-            let testFile = 'test.html'
-            detector.readFromFile(testFile)
-                .then(res => {
-                    assert.equal(detector.detect(res),undefined)
-                    done()
-                })
+        it('#detector(document)', () => {
+            let fakeDom = htmlParser.parse('<html></html>')
+            assert.ifError(detector.detect(fakeDom))
         })
-
     })
 })

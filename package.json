@@ -1,8 +1,11 @@
 {
     "name": "tea-detector",
-    "version": "1.0.0",
-    "description": "",
+    "version": "1.0.1",
+    "description": "Simple SEO detecting cli tool which allows customized rules.",
     "author": "tea lin",
+    "repository": {
+        "url": "https://github.com/bestteadahan/seo_detector"
+    },
     "main": "index.js",
     "bin": {
         "tea-detect": "index.js"
@@ -11,17 +14,16 @@
         "node": ">=6.14.4"
     },
     "scripts": {
-        "test": "mocha test/*.js"
+        "test": "mocha"
     },
     "license": "ISC",
     "dependencies": {
         "axios": "^0.18.0",
+        "commander": "^2.19.0",
         "is-url": "^1.2.4",
         "node-html-parser": "^1.1.10"
     },
     "devDependencies": {
-        "commander": "^2.19.0",
-        "mocha": "^5.2.0",
-        "rewire": "^4.0.1"
+        "mocha": "^5.2.0"
     }
 }

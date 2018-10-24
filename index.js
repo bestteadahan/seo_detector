@@ -10,17 +10,25 @@ const seoDetector = require('./lib/seoDetector.js')
 const list = (val) => val.split(',')
 
 program
-    .version('0.0.1')
-    .arguments('<input> [file ...]', 'The file path or url.')
-    .option('-f, --file [name]', 'The input file (ex: demo.html)', list)
-    .option('-u, --url [name]', 'The url source (ex: www.demo.com)', list)
-    .option('-o, --output [name]', 'The output result file (ex: result.txt)')
-    .option('-r, --rules <no.>', 'The number of rule that applied to detector.If many, seperate by ","', list)
+    .version('1.0.1')
+    // .arguments('', 'The file path or url.')
+    .option('-f, --file [name|path]', 'The input file path(ex: demo.html)', list)
+    .option('-u, --url [addr]', 'The url source (ex: http://www.demo.com)', list)
+    .option('-o, --output [name]', 'The output file name (ex: result.txt)')
+    .option('-r, --rules [no,...]', 'The number of rule that applied to detector, seperate by ","', list)
     .parse(process.argv);
 
 // Detect rules
-let rules = require('./lib/rules_config')
-// Apply customized rules
+let rules
+let customizedRules = path.resolve(__dirname, 'seorule_conf.json')
+if (fs.existsSync(customizedRules)) {
+    console.log('Using customized rules...')
+    rules = JSON.parse(fs.readFileSync(customizedRules))
+} else {
+    console.log('Using default rules...')
+    rules = JSON.parse(fs.readFileSync('lib/seorule_conf_default.json'))
+}
+// Apply specific rule numbers
 if (program.rules) {
     rules = rules.filter(rule => program.rules.includes(rule.no))
 }
@@ -28,9 +36,9 @@ if (program.rules) {
 // output
 if (program.output) {
     let output = program.output
-    console.log(`output: ./logs/${output} \n error: ./logs/error-${output}`)
-    let logfile = fs.createWriteStream(`logs/${output}`)
-    let errfile = fs.createWriteStream(`logs/error-${output}`)
+    console.log(`output: ${output} \n error: error-${output}`)
+    let logfile = fs.createWriteStream(`${output}`)
+    let errfile = fs.createWriteStream(`${output}.error`)
     process.stdout.write = logfile.write.bind(logfile);
     process.stderr.write = errfile.write.bind(errfile);
 }
@@ -51,7 +59,10 @@ function readSource(type) {
                 console.log(`\n#### Detect source: ${input} ####`)
                 detector.detect(document)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                let msg = { 'input': input, 'error': err }
+                console.error(JSON.stringify(msg, null, 2))
+            })
     }
 }
 
